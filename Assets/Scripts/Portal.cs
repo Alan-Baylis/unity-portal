@@ -9,6 +9,7 @@ public class Portal : MonoBehaviour {
 
     Camera camera;
     Material material;
+    GameObject frame;
     int viewTextureResolution = 512;
 
 	// Use this for initialization
@@ -24,32 +25,29 @@ public class Portal : MonoBehaviour {
         int height = (int)(Mathf.Abs(transform.lossyScale.y) * viewTextureResolution);
         viewTexture = new RenderTexture(width, height, 16);
         camera.targetTexture = viewTexture;
-        UpdateCameraView();
         // Material
         material = new Material(Shader.Find("Unlit/Texture"));
-        GetComponent<MeshRenderer>().material = material;
-	}
+        // Frame
+        frame = transform.Find("Frame").gameObject;
+        frame.GetComponent<MeshRenderer>().material = material;
+
+        UpdateCameraView();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	    if (exitPortal != null) {
-            material.SetTexture("_MainTex", exitPortal.viewTexture);
-            UpdateCameraView();
-        }
-        Vector3 incident = (exitPortal.transform.position - player.transform.position).normalized;
-        Vector3 cameraDir = Vector3.Reflect(incident, exitPortal.transform.forward);
-        camera.transform.LookAt(camera.transform.position + cameraDir, Vector3.up);
-	}
+        material.SetTexture("_MainTex", exitPortal.viewTexture);
+    }
 
     public void UpdateCameraView() {
         float fieldOfView = Camera.main.fieldOfView;
         camera.fieldOfView = fieldOfView;
-        float y = transform.lossyScale.y / 2;
+        float y = frame.transform.lossyScale.y / 2;
         float theta = (fieldOfView / 2) * Mathf.Deg2Rad;
         float h = y / Mathf.Sin(theta);
         float distance = h * Mathf.Cos(theta);
         Vector3 camPos = camera.transform.localPosition;
-        camera.transform.localPosition = new Vector3(camPos.x, camPos.y, distance);
+        camera.transform.localPosition = new Vector3(camPos.x, camPos.y, distance / transform.localScale.z);
         camera.nearClipPlane = distance;
     }
 }
