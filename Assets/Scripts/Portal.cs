@@ -12,8 +12,8 @@ public class Portal : MonoBehaviour {
     GameObject frame;
     int viewTextureResolution = 512;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         // Player
         player = GameObject.Find("Player");
         if (player == null) throw new UnityException("Missing Player!");
@@ -33,9 +33,9 @@ public class Portal : MonoBehaviour {
 
         UpdateCameraView();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         material.SetTexture("_MainTex", exitPortal.viewTexture);
     }
 
@@ -49,5 +49,36 @@ public class Portal : MonoBehaviour {
         Vector3 camPos = camera.transform.localPosition;
         camera.transform.localPosition = new Vector3(camPos.x, camPos.y, distance / transform.localScale.z);
         camera.nearClipPlane = distance;
+    }
+
+    void OnTriggerEnter(Collider other) {
+        var portable = other.GetComponent<Portable>();
+        if (portable != null) {
+            if (portable.isTeleported) return;
+            GameObject clone = (GameObject)Instantiate(other.gameObject);
+            var portableClone = clone.GetComponent<Portable>();
+            portableClone.isTeleported = true;
+            portable.clone = clone;
+            portable.UpdateCloneTransform(gameObject, exitPortal.gameObject);
+        }
+    }
+
+    void OnTriggerStay(Collider other) {
+        var portable = other.GetComponent<Portable>();
+        if (portable != null) {
+            if (portable.isTeleported) return;
+            portable.UpdateCloneTransform(gameObject, exitPortal.gameObject);
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        var portable = other.GetComponent<Portable>();
+        if (portable != null) {
+            if (portable.isTeleported) {
+                portable.isTeleported = false;
+            } else {
+                
+            }
+        }
     }
 }

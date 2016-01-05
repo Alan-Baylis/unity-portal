@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 449506}
   - 114: {fileID: 11458954}
+  - 65: {fileID: 6568426}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -80,7 +81,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 188448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 419354}
@@ -103,7 +104,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: .300000012
+  near clip plane: .00999999978
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -154,6 +155,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148028}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &6568426
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: .5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11458954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -165,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f97336043827c4cad02021f0912c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitPortal: {fileID: 11458954}
+  exitPortal: {fileID: 0}
   player: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
