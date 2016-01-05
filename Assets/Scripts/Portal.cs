@@ -47,7 +47,7 @@ public class Portal : MonoBehaviour {
         float h = y / Mathf.Sin(theta);
         float distance = h * Mathf.Cos(theta);
         Vector3 camPos = camera.transform.localPosition;
-        camera.transform.localPosition = new Vector3(camPos.x, camPos.y, distance / transform.localScale.z);
+        camera.transform.localPosition = new Vector3(camPos.x, camPos.y, -distance / transform.localScale.z);
         camera.nearClipPlane = distance;
     }
 
@@ -74,10 +74,13 @@ public class Portal : MonoBehaviour {
     void OnTriggerExit(Collider other) {
         var portable = other.GetComponent<Portable>();
         if (portable != null) {
-            if (portable.isTeleported) {
+            Vector3 portalToObjDir = (other.transform.position - transform.position).normalized;
+            float side = Vector3.Dot(transform.forward, portalToObjDir);
+            if (side < 0) {
+                Destroy(other.gameObject);
+            }
+            if(portable.isTeleported) {
                 portable.isTeleported = false;
-            } else {
-                
             }
         }
     }

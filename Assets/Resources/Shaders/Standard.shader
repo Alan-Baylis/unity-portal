@@ -1,4 +1,4 @@
-﻿Shader "Custom/Portal/Standard" {
+﻿Shader "Custom/Standard" {
 	Properties {
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
@@ -7,10 +7,6 @@
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
-		Stencil {
-			Ref 1
-			Comp NotEqual
-		}
 		LOD 200
 		
 		CGPROGRAM

@@ -18,7 +18,7 @@ public class Portable : MonoBehaviour {
 
     public void UpdateCloneTransform(GameObject entrancePortal, GameObject exitPortal) {
         if (clone == null) return;
-        Vector3 entranceToSelf = entrancePortal.transform.position - transform.position;
+        Vector3 entranceToSelf = transform.position - entrancePortal.transform.position;
         clone.transform.position = exitPortal.transform.rotation * entranceToSelf + exitPortal.transform.position;
         clone.transform.rotation = transform.rotation * exitPortal.transform.rotation * Quaternion.Euler(0, 180f, 0);
     }
