@@ -201,7 +201,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26d752e985cc8e34788447534aa4aa10, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 590595419}
   m_LocalRotation: {x: 0, y: .458494514, z: 0, w: .888697267}
-  m_LocalPosition: {x: 3.36999989, y: 0, z: -5.36800003}
+  m_LocalPosition: {x: -.910000026, y: .579999983, z: -4.09399986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -359,7 +359,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 690455040}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.20000005, y: 0, z: -9.71899986}
+  m_LocalPosition: {x: -1.20000005, y: 0, z: -13.6000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 493977471}
@@ -375,7 +375,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 26d752e985cc8e34788447534aa4aa10, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -420,7 +420,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 449506, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 6.98999977
       objectReference: {fileID: 0}
     - target: {fileID: 449506, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
       propertyPath: m_LocalPosition.y
@@ -486,7 +486,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 449506, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 449506, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
       propertyPath: m_LocalPosition.y
