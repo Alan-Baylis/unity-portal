@@ -36,7 +36,12 @@ public class Portal : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        material.SetTexture("_MainTex", exitPortal.viewTexture);
+        material.SetTexture("_MainTex", exitPortal.viewTexture); // refactor this, only needs to be called once, when initialized.
+        // Parallax
+        Vector3 portalToExitPlayer = player.transform.position - exitPortal.transform.position;
+        float dot = Vector3.Dot(-transform.right, portalToExitPlayer);
+        Vector3 camPos = camera.transform.localPosition;
+        camera.transform.localPosition = new Vector3(dot / transform.localScale.x, camPos.y, camPos.z);
     }
 
     public void UpdateCameraView() {
