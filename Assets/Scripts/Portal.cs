@@ -5,8 +5,9 @@ public class Portal : MonoBehaviour {
 
     public RenderTexture viewTexture { get; private set; }
     public Portal exitPortal;
-    public GameObject player;
 
+    GameObject player;
+    Camera playerCamera;
     Camera camera;
     Material material;
     GameObject frame;
@@ -17,6 +18,7 @@ public class Portal : MonoBehaviour {
         // Player
         player = GameObject.Find("Player");
         if (player == null) throw new UnityException("Missing Player!");
+        playerCamera = Camera.main;
         // Camera
         GameObject camObject = transform.Find("Camera").gameObject;
         if (camObject == null) throw new UnityException("Missing Portal Camera!");
@@ -30,30 +32,15 @@ public class Portal : MonoBehaviour {
         // Frame
         frame = transform.Find("Frame").gameObject;
         frame.GetComponent<MeshRenderer>().material = material;
-
-        UpdateCameraView();
     }
 
     // Update is called once per frame
     void Update() {
         material.SetTexture("_MainTex", exitPortal.viewTexture); // refactor this, only needs to be called once, when initialized.
         // Parallax
-        Vector3 portalToExitPlayer = player.transform.position - exitPortal.transform.position;
-        float dot = Vector3.Dot(-transform.right, portalToExitPlayer);
-        Vector3 camPos = camera.transform.localPosition;
-        camera.transform.localPosition = new Vector3(dot / transform.localScale.x, camPos.y, camPos.z);
-    }
-
-    public void UpdateCameraView() {
-        float fieldOfView = Camera.main.fieldOfView;
-        camera.fieldOfView = fieldOfView;
-        float y = frame.transform.lossyScale.y / 2;
-        float theta = (fieldOfView / 2) * Mathf.Deg2Rad;
-        float h = y / Mathf.Sin(theta);
-        float distance = h * Mathf.Cos(theta);
-        Vector3 camPos = camera.transform.localPosition;
-        camera.transform.localPosition = new Vector3(camPos.x, camPos.y, -distance / transform.localScale.z);
-        camera.nearClipPlane = distance;
+        UpdateCamera();
+        Vector3 lookDir = transform.position + (transform.position - player.transform.position).normalized;
+        frame.transform.LookAt(lookDir, Vector3.up);
     }
 
     void OnTriggerEnter(Collider other) {
@@ -84,9 +71,30 @@ public class Portal : MonoBehaviour {
             if (side < 0) {
                 Destroy(other.gameObject);
             }
-            if(portable.isTeleported) {
+            if (portable.isTeleported) {
                 portable.isTeleported = false;
             }
         }
+    }
+
+    void UpdateCamera() {
+        // camera position
+        Vector3 playerFromExitPos = exitPortal.transform.InverseTransformPoint(player.transform.position);
+        camera.transform.localPosition = new Vector3(-playerFromExitPos.x, playerFromExitPos.y, -playerFromExitPos.z);
+
+        // camera rotation
+        camera.transform.LookAt(transform.position, Vector3.up);
+
+        // field of view
+        float opp = frame.transform.lossyScale.y / 2;
+        float adj = Vector3.Distance(exitPortal.transform.position, player.transform.position);
+        camera.fieldOfView = (2 * Mathf.Atan(opp / adj) * (180f / Mathf.PI));
+        
+        /*
+        // oblique near clipping plane
+        Vector3 clipPlane = transform.position + transform.forward;
+        camera.projectionMatrix = camera.CalculateObliqueMatrix(new Vector4(clipPlane.x, clipPlane.y, clipPlane.z, 1.0f));
+        */
+        
     }
 }

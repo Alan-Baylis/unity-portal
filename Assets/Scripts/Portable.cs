@@ -20,6 +20,6 @@ public class Portable : MonoBehaviour {
         if (clone == null) return;
         Vector3 entranceToSelf = transform.position - entrancePortal.transform.position;
         clone.transform.position = exitPortal.transform.rotation * entranceToSelf + exitPortal.transform.position;
-        clone.transform.rotation = transform.rotation * exitPortal.transform.rotation * Quaternion.Euler(0, 180f, 0);
+        clone.transform.rotation = transform.rotation * exitPortal.transform.rotation;
     }
 }
