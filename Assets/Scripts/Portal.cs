@@ -5,42 +5,33 @@ public class Portal : MonoBehaviour {
 
     public RenderTexture viewTexture { get; private set; }
     public Portal exitPortal;
-
     GameObject player;
-    Camera playerCamera;
-    Camera camera;
+    Camera myCamera, mainCamera;
     Material material;
-    GameObject frame;
     int viewTextureResolution = 512;
 
-    // Use this for initialization
-    void Start() {
+    void Awake() {
         // Player
         player = GameObject.Find("Player");
         if (player == null) throw new UnityException("Missing Player!");
-        playerCamera = Camera.main;
         // Camera
         GameObject camObject = transform.Find("Camera").gameObject;
         if (camObject == null) throw new UnityException("Missing Portal Camera!");
-        camera = camObject.GetComponent<Camera>();
-        int width = (int)(Mathf.Abs(transform.lossyScale.x) * viewTextureResolution);
-        int height = (int)(Mathf.Abs(transform.lossyScale.y) * viewTextureResolution);
-        viewTexture = new RenderTexture(width, height, 16);
-        camera.targetTexture = viewTexture;
-        // Material
-        material = new Material(Shader.Find("Unlit/Texture"));
-        // Frame
-        frame = transform.Find("Frame").gameObject;
-        frame.GetComponent<MeshRenderer>().material = material;
+        myCamera = camObject.GetComponent<Camera>();
+        mainCamera = Camera.main;
+        // Render Texture
+        viewTexture = new RenderTexture(Screen.width, Screen.height, 16);
+        myCamera.targetTexture = viewTexture;
+    }
+
+    // Use this for initialization
+    void Start() {
+
     }
 
     // Update is called once per frame
     void Update() {
-        material.SetTexture("_MainTex", exitPortal.viewTexture); // refactor this, only needs to be called once, when initialized.
-        // Parallax
         UpdateCamera();
-        Vector3 lookDir = transform.position + (transform.position - player.transform.position).normalized;
-        frame.transform.LookAt(lookDir, Vector3.up);
     }
 
     void OnTriggerEnter(Collider other) {
@@ -79,22 +70,24 @@ public class Portal : MonoBehaviour {
 
     void UpdateCamera() {
         // camera position
-        Vector3 playerFromExitPos = exitPortal.transform.InverseTransformPoint(player.transform.position);
-        camera.transform.localPosition = new Vector3(-playerFromExitPos.x, playerFromExitPos.y, -playerFromExitPos.z);
-
+        Vector3 localExitToPlayer = exitPortal.transform.InverseTransformPoint(player.transform.position);
+        myCamera.transform.localPosition = new Vector3(-localExitToPlayer.x, localExitToPlayer.y, -localExitToPlayer.z);
+        
         // camera rotation
-        camera.transform.LookAt(transform.position, Vector3.up);
+        myCamera.transform.LookAt(transform.position, Vector3.up);
 
         // field of view
+        myCamera.fieldOfView = mainCamera.fieldOfView;
+        /*
         float opp = frame.transform.lossyScale.y / 2;
         float adj = Vector3.Distance(exitPortal.transform.position, player.transform.position);
-        camera.fieldOfView = (2 * Mathf.Atan(opp / adj) * (180f / Mathf.PI));
-        
+        myCamera.fieldOfView = (2 * Mathf.Atan(opp / adj) * (180f / Mathf.PI));
+        */
+
         /*
         // oblique near clipping plane
         Vector3 clipPlane = transform.position + transform.forward;
         camera.projectionMatrix = camera.CalculateObliqueMatrix(new Vector4(clipPlane.x, clipPlane.y, clipPlane.z, 1.0f));
         */
-        
     }
 }

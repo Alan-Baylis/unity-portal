@@ -6,8 +6,10 @@ public class Portable : MonoBehaviour {
     public bool isTeleported { get; set; }
     public GameObject clone { get; set; }
 
-	// Use this for initialization
-	void Start () {
+    Quaternion flipY = Quaternion.Euler(0, 180f, 0);
+
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -18,8 +20,15 @@ public class Portable : MonoBehaviour {
 
     public void UpdateCloneTransform(GameObject entrancePortal, GameObject exitPortal) {
         if (clone == null) return;
-        Vector3 entranceToSelf = transform.position - entrancePortal.transform.position;
-        clone.transform.position = exitPortal.transform.rotation * entranceToSelf + exitPortal.transform.position;
-        clone.transform.rotation = transform.rotation * exitPortal.transform.rotation;
+
+        Transform tran = transform;
+        Transform cloneTran = clone.transform;
+        Transform exitTran = exitPortal.transform;
+
+        Quaternion exitPortalRotation = exitTran.rotation * flipY;
+        Vector3 entranceToSelf = tran.position - entrancePortal.transform.position;
+
+        cloneTran.position = exitTran.position + exitPortalRotation * entranceToSelf;
+        cloneTran.rotation = exitPortalRotation * tran.rotation;
     }
 }
