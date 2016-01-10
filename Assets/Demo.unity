@@ -109,6 +109,7 @@ GameObject:
   - 92: {fileID: 493977469}
   - 124: {fileID: 493977468}
   - 81: {fileID: 493977467}
+  - 114: {fileID: 493977472}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -183,6 +184,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 690455041}
   m_RootOrder: 0
+--- !u!114 &493977472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 493977466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1816587f2490944aa16f6cfc006f2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 22a66c1deb053b447b8a010fc0cf3dfa, type: 2}
+  portal1: {fileID: 304591554}
+  portal2: {fileID: 8860160}
 --- !u!1 &631054924
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +301,10 @@ Prefab:
       propertyPath: exitPortal
       value: 
       objectReference: {fileID: 8860160}
+    - target: {fileID: 2368362, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f75cd72e054943f41bfdab41e6bdc4d9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
   m_IsPrefabParent: 0
@@ -441,6 +460,10 @@ Prefab:
       propertyPath: exitPortal
       value: 
       objectReference: {fileID: 304591554}
+    - target: {fileID: 2368362, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b6ed9f5c07f3c714e8e26b2eef8b2daa, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
   m_IsPrefabParent: 0

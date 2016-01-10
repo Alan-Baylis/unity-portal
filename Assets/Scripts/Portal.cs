@@ -72,17 +72,15 @@ public class Portal : MonoBehaviour {
         // camera position
         Vector3 localExitToPlayer = exitPortal.transform.InverseTransformPoint(player.transform.position);
         myCamera.transform.localPosition = new Vector3(-localExitToPlayer.x, localExitToPlayer.y, -localExitToPlayer.z);
-        
+
         // camera rotation
-        myCamera.transform.LookAt(transform.position, Vector3.up);
+        Vector3 playerEulerRot = player.transform.eulerAngles;
+        float rotationY = playerEulerRot.y + 180f;
+        Vector3 eulerRot = new Vector3(playerEulerRot.x, rotationY, playerEulerRot.z);
+        myCamera.transform.rotation = Quaternion.Euler(eulerRot);
 
         // field of view
         myCamera.fieldOfView = mainCamera.fieldOfView;
-        /*
-        float opp = frame.transform.lossyScale.y / 2;
-        float adj = Vector3.Distance(exitPortal.transform.position, player.transform.position);
-        myCamera.fieldOfView = (2 * Mathf.Atan(opp / adj) * (180f / Mathf.PI));
-        */
 
         /*
         // oblique near clipping plane
