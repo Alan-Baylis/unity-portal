@@ -20,17 +20,12 @@ public class Portal : MonoBehaviour {
         myCamera = camObject.GetComponent<Camera>();
         mainCamera = Camera.main;
         // Render Texture
-        viewTexture = new RenderTexture(Screen.width, Screen.height, 16);
-        myCamera.targetTexture = viewTexture;
-    }
-
-    // Use this for initialization
-    void Start() {
-
+        UpdateRenderTarget();
     }
 
     // Update is called once per frame
     void Update() {
+        // update position, rotation, fov, render target
         UpdateCamera();
     }
 
@@ -75,17 +70,27 @@ public class Portal : MonoBehaviour {
 
         // camera rotation
         Vector3 playerEulerRot = player.transform.eulerAngles;
-        float rotationY = playerEulerRot.y + 180f;
-        Vector3 eulerRot = new Vector3(playerEulerRot.x, rotationY, playerEulerRot.z);
-        myCamera.transform.rotation = Quaternion.Euler(eulerRot);
+        myCamera.transform.rotation = Quaternion.Euler(playerEulerRot.x, playerEulerRot.y + 180f, playerEulerRot.z);
 
         // field of view
         myCamera.fieldOfView = mainCamera.fieldOfView;
 
+        // render target size
+        if(Screen.width != viewTexture.width || Screen.height != viewTexture.height) {
+            UpdateRenderTarget();
+        }
+
         /*
         // oblique near clipping plane
-        Vector3 clipPlane = transform.position + transform.forward;
-        camera.projectionMatrix = camera.CalculateObliqueMatrix(new Vector4(clipPlane.x, clipPlane.y, clipPlane.z, 1.0f));
+        Vector3 planeNormal = transform.forward;
+        float planeDist = myCamera.transform.localPosition.magnitude;
+        Vector3 clipPlane = new Vector4(planeNormal.x, planeNormal.y, planeNormal.z, planeDist);
+        myCamera.projectionMatrix = myCamera.CalculateObliqueMatrix(clipPlane);
         */
+    }
+
+    void UpdateRenderTarget() {
+        viewTexture = new RenderTexture(Screen.width, Screen.height, 16);
+        myCamera.targetTexture = viewTexture;
     }
 }
