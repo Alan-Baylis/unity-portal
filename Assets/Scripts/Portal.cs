@@ -5,6 +5,7 @@ public class Portal : MonoBehaviour {
 
     public RenderTexture viewTexture { get; private set; }
     public Portal exitPortal;
+    public float x = 1.0f;
     GameObject player;
     Camera myCamera, mainCamera;
     Material material;
@@ -38,6 +39,8 @@ public class Portal : MonoBehaviour {
             portableClone.isTeleported = true;
             portable.clone = clone;
             portable.UpdateCloneTransform(gameObject, exitPortal.gameObject);
+            // enable clip plane
+            portable.SetClipPlaneActive(true);
         }
     }
 
@@ -46,6 +49,8 @@ public class Portal : MonoBehaviour {
         if (portable != null) {
             if (portable.isTeleported) return;
             portable.UpdateCloneTransform(gameObject, exitPortal.gameObject);
+            // update clip plane
+            portable.SetClipPlane(transform.position, transform.forward);
         }
     }
 
@@ -60,6 +65,8 @@ public class Portal : MonoBehaviour {
             if (portable.isTeleported) {
                 portable.isTeleported = false;
             }
+            // disable clip plane
+            portable.SetClipPlaneActive(false);
         }
     }
 
@@ -82,9 +89,9 @@ public class Portal : MonoBehaviour {
 
         /*
         // oblique near clipping plane
-        Vector3 planeNormal = transform.forward;
+        Vector3 planeNormal = myCamera.transform.InverseTransformDirection(transform.forward);
         float planeDist = myCamera.transform.localPosition.magnitude;
-        Vector3 clipPlane = new Vector4(planeNormal.x, planeNormal.y, planeNormal.z, planeDist);
+        Vector3 clipPlane = new Vector4(planeNormal.x, planeNormal.y, planeNormal.z, -planeDist);
         myCamera.projectionMatrix = myCamera.CalculateObliqueMatrix(clipPlane);
         */
     }

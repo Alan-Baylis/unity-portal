@@ -7,6 +7,7 @@
 				Comp Always
 				Pass Replace
 			}
+			ColorMask 0
 		}
 	} 
 }

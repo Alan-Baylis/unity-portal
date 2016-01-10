@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Test
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Portable
+  m_Shader: {fileID: 4800000, guid: 8212c0a3d7fd8ad4189c8ffd72272e24, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -127,6 +127,14 @@ Material:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _IsInPortal
+        second: 0
+      data:
+        first:
+          name: _IsClipPlaneActive
+        second: 0
     m_Colors:
       data:
         first:
@@ -136,3 +144,11 @@ Material:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _ClipPlaneNorm
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _ClipPlanePos
+        second: {r: 0, g: 0, b: 0, a: 1}

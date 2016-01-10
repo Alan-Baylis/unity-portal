@@ -301,10 +301,6 @@ Prefab:
       propertyPath: exitPortal
       value: 
       objectReference: {fileID: 8860160}
-    - target: {fileID: 2368362, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f75cd72e054943f41bfdab41e6bdc4d9, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 164608347c36b3d40ae10dc206b23e91, type: 2}
   m_IsPrefabParent: 0
@@ -476,7 +472,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 3fcacde5ed1388546a0b73c73735e468, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.11999989
+      value: 3.28999996
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3fcacde5ed1388546a0b73c73735e468, type: 3}
       propertyPath: m_LocalPosition.y
@@ -484,7 +480,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3fcacde5ed1388546a0b73c73735e468, type: 3}
       propertyPath: m_LocalPosition.z
-      value: .0399999991
+      value: .0299999993
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3fcacde5ed1388546a0b73c73735e468, type: 3}
       propertyPath: m_LocalRotation.x
