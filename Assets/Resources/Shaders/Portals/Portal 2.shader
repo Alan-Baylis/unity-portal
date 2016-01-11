@@ -7,7 +7,8 @@
 				Comp Always
 				Pass Replace
 			}
-			ColorMask 0
+			//ColorMask 0
+			ZWrite Off
 		}
 	} 
 }

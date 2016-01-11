@@ -77,7 +77,8 @@ public class Portal : MonoBehaviour {
 
         // camera rotation
         Vector3 playerEulerRot = player.transform.eulerAngles;
-        myCamera.transform.rotation = Quaternion.Euler(playerEulerRot.x, playerEulerRot.y + 180f, playerEulerRot.z);
+        float rotationX = playerEulerRot.x + transform.eulerAngles.x;
+        myCamera.transform.rotation = Quaternion.Euler(rotationX, playerEulerRot.y + 180f, playerEulerRot.z);
 
         // field of view
         myCamera.fieldOfView = mainCamera.fieldOfView;
