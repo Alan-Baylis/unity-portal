@@ -90,9 +90,9 @@ public class Portal : MonoBehaviour {
 
         /*
         // oblique near clipping plane
-        Vector3 planeNormal = myCamera.transform.InverseTransformDirection(transform.forward);
-        float planeDist = myCamera.transform.localPosition.magnitude;
-        Vector3 clipPlane = new Vector4(planeNormal.x, planeNormal.y, planeNormal.z, -planeDist);
+        Plane portalPlane = new Plane(transform.forward, transform.position);
+        Vector3 clipPlaneNorm = portalPlane.normal;
+        Vector3 clipPlane = new Vector4(clipPlaneNorm.x, clipPlaneNorm.y, clipPlaneNorm.z, portalPlane.distance);
         myCamera.projectionMatrix = myCamera.CalculateObliqueMatrix(clipPlane);
         */
     }
